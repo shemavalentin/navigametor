@@ -1,6 +1,7 @@
 
 let CANVAS;
 let ANGLE = 0;
+let ANLGE_TO_REFERENCE_POINT = 0;
 
 function main(){
 	CANVAS = document.getElementById("firstCanvas")
@@ -18,11 +19,20 @@ function onOrientationChange(event){
 
 	// Adding an offset as It will point the right
 	const offset = -Math.PI/2;
-	const fixedAngle = ANGLE * Math.PI/180+offset;
+	const fixedAngle = (ANGLE - ANLGE_TO_REFERENCE_POINT)* Math.PI/180+offset;
+
+	// Setting up the distance to the reference basing on the slider's inputs values
+	const distanceToReference = document.getElementById("firstSlider").value;
+	//Updating the label on the screen 
+	document.getElementById("firstLabel").innerHTML="Distance to reference: "+distanceToReference+" m";
+
+	// Getting the distance to the target
+	let distanceTotarget = Math.abs(Math.tan(fixedAngle - offset)) * distanceToReference;
+	// console.log(distanceTotarget)
 
 	// Calculating the radius( here I need to use the minimum cse it a bit less than the half of the minimum of 
 	// the width and height)
-	const rad = Math.min(CANVAS.width, CANVAS.height)* 0.45;
+	const rad = Math.min(CANVAS.width, CANVAS.height)* 0.35;
 
 	// Making the moving part to be relative to the circle. I use the trigonometric function to calculate this.
 	// on this I'll use the cosin on the X and the sin on Y
@@ -46,6 +56,9 @@ function onOrientationChange(event){
 	// It doesn't make sense to rotate over 90 degrees
 	if(movingTip.y > CANVAS.height/2){
 		ctx.fillStyle = "red"
+
+		// when the angle is obtus, now the distance to target will be 0 and the user will knows that there is an error
+		distanceTotarget = 0;
 	}
 
 	// Checking if the moving tip is on the side of the screen.
@@ -82,4 +95,16 @@ function onOrientationChange(event){
 	//Here I need to calculate the the location of the tip that moves next
 	ctx.lineTo(movingTip.x, movingTip.y);
 	ctx.stroke();
+
+	// writting the estimated distance
+	ctx.beginPath();
+	ctx.font = "50px Arial";
+	ctx.textAlign = "center";
+	ctx.fillText(distanceTotarget.toFixed(1) +" meters", CANVAS.width/2, CANVAS.height*0.98);
+}
+
+// Let's write codes for the rest onClick handler
+
+function reset(){
+	ANLGE_TO_REFERENCE_POINT = ANGLE;
 }

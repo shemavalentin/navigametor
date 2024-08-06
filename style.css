@@ -3,4 +3,44 @@ body {
 	overflow: hidden;
 	background: #222;
 	color: white;
+	font-family: arial;
+	text-align:center;
+}
+/*// The slider is not showing well, we need to customize it*/
+#firstSlider{
+/*	to remove the default style*/
+	appearance: none; 
+	width: 90%;
+	height: 30px;
+	margin-top: 10px;
+	background: #47f;
+
+}
+
+#firstSlider::-webkit-slider-thumb{
+	appearance: none;
+	width: 35px;
+	height: 35px;
+	background: white;
+}
+
+canvas{
+	position: absolute;
+	top: 0;
+	left:0;
+	z-index: -1;
+}
+
+button {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 5px;
+	font-weight: bold;
+	font-size: 25px;
+}
+
+#firstLabel{
+	font-size: 25px;
 }

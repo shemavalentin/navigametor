@@ -7,6 +7,18 @@
 	</head>
 
 	<body onload="main()">
+
+		<!-- Let's now use the slider to estimate the distance  
+			here we can use the values we need but the fact is that when you take big values you also need to 
+			to go further away from the referencne point. otherwise the angle could be too close to 90 degrees.
+			and this means the end of the universe( tan(90) = + infinite)
+		-->
+		<input id ="firstSlider" type="range" value="40" min="1" max="100"> 
+		<!-- giving the user a way to write in the slider values on the screen. otherwise user won't what is.-->
+		<div id="firstLabel"></div>
+		<!--  Adding the making of the angle when the user facing the reference point -->
+		<!-- Let's add the button -->
+		<button onclick="reset()">SET</button>
 		<canvas id = firstCanvas></canvas>
 	</body>
 </html>
